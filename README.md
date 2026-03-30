@@ -6,7 +6,7 @@ Built with Angular 17 on the frontend and Django REST Framework on the backend.
 
 Kuanysh Zhanibek
 Yessentay Adil
-TBD
+Mukhantay Imangali
 
 
 KBTU — Web Development Course
