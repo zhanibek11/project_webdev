@@ -2,6 +2,9 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Location, Listing, Booking, Review, UserProfile, Amenity, ListingAmenity
 
+
+# ===== serializers.Serializer (4 штуки) =====
+
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)
     email = serializers.EmailField()
@@ -61,7 +64,7 @@ class SearchSerializer(serializers.Serializer):
     max_price = serializers.DecimalField(max_digits=10, decimal_places=2, required=False)
 
 
-#serializers.ModelSerializer [][][][]
+# ===== serializers.ModelSerializer (6 штук) =====
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
