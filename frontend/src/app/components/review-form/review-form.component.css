@@ -1,0 +1,20 @@
+.review-form {
+  background: #f0f7f4;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid #c8e6c9;
+}
+.review-form h4 { margin-bottom: 14px; color: var(--primary); }
+
+.stars-row { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
+.star {
+  font-size: 28px;
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.15s;
+  user-select: none;
+}
+.star.active { color: #f59e0b; }
+.star:hover { color: #f59e0b; }
+.rating-label { font-size: 14px; color: var(--text-muted); margin-left: 6px; }
