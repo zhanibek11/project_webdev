@@ -1,0 +1,58 @@
+.filters-bar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  position: sticky;
+  top: 64px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.filters-bar h1 { font-size: 1.4rem; margin-bottom: 14px; color: var(--primary); }
+.filters-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.filters-row select {
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  min-width: 150px;
+}
+.search-box { display: flex; gap: 8px; }
+.search-box input {
+  padding: 9px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  min-width: 220px;
+}
+.listings-body { margin-top: 32px; }
+.results-count { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.listing-card { cursor: pointer; }
+.listing-img { height: 200px; overflow: hidden; background: #e8f5e9; }
+.listing-img img { width: 100%; height: 100%; object-fit: cover; }
+.img-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+}
+.listing-info { padding: 16px; }
+.listing-tags { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.tag { font-size: 12px; padding: 3px 10px; background: #e8f5e9; color: var(--primary); border-radius: 20px; font-weight: 600; }
+.tag-meal { background: #fff3e0; color: var(--accent); }
+.listing-info h3 { font-size: 17px; margin-bottom: 4px; }
+.listing-location { color: var(--text-muted); font-size: 13px; margin-bottom: 6px; }
+.listing-desc { color: var(--text-muted); font-size: 13px; line-height: 1.5; margin-bottom: 12px; }
+.listing-footer { display: flex; justify-content: space-between; align-items: center; }
+.price { font-size: 18px; font-weight: 700; color: var(--primary); }
+.price small { font-size: 12px; font-weight: 400; color: var(--text-muted); }
+.rating { font-size: 13px; color: var(--text-muted); }

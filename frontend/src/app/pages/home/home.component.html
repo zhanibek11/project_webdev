@@ -1,0 +1,77 @@
+<div class="home-container">
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Qazaq Rent</h1>
+      <p class="hero-sub">Открой аутентичный Казахстан — юрты, эко-дома и горные ретриты</p>
+      <button (click)="goToListings()" class="btn-primary hero-btn">
+        Смотреть все юрты
+      </button>
+    </div>
+  </section>
+
+  @if (errorMessage) {
+    <div class="container" style="margin-top: 16px">
+      <div class="error">{{ errorMessage }}</div>
+    </div>
+  }
+
+  <section class="map-section container">
+    <h2>Выберите город на карте</h2>
+    <p class="section-sub">Нажмите на маркер — откроется список юрт в этом городе</p>
+    <div id="map" class="map"></div>
+  </section>
+
+  <section class="cities-section container">
+    <h2>Популярные направления</h2>
+    <div class="cities-grid">
+      <div class="city-card" (click)="goToListings('almaty')">
+        <span class="city-emoji">🏔️</span>
+        <h3>Алматы</h3>
+        <p>Горные юрты</p>
+      </div>
+      <div class="city-card" (click)="goToListings('astana')">
+        <span class="city-emoji">🏙️</span>
+        <h3>Астана</h3>
+        <p>Степные юрты</p>
+      </div>
+      <div class="city-card" (click)="goToListings('aktau')">
+        <span class="city-emoji">🌊</span>
+        <h3>Актау</h3>
+        <p>Каспийское побережье</p>
+      </div>
+      <div class="city-card" (click)="goToListings('shymkent')">
+        <span class="city-emoji">🌿</span>
+        <h3>Шымкент</h3>
+        <p>Южные традиции</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-section container">
+    <h2>Как это работает</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Выберите город</h4>
+        <p>Нажмите на маркер на карте или выберите из списка</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Найдите юрту</h4>
+        <p>Фильтруйте по типу и условиям питания</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Забронируйте</h4>
+        <p>Выберите свободные даты и подтвердите бронь</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Наслаждайтесь</h4>
+        <p>Приезжайте и получайте незабываемый опыт</p>
+      </div>
+    </div>
+  </section>
+
+</div>
