@@ -1,0 +1,123 @@
+<div class="detail-page">
+  @if (loading) {
+    <div class="loading">⏳ Загружаем информацию...</div>
+  }
+
+  @if (errorMessage) {
+    <div class="container"><div class="error">{{ errorMessage }}</div></div>
+  }
+
+  @if (listing) {
+    <div class="listing-hero">
+      @if (listing.image_url) {
+        <img [src]="listing.image_url" [alt]="listing.title" />
+      } @else {
+        <div class="hero-placeholder">🏕️</div>
+      }
+    </div>
+
+    <div class="container detail-body">
+      <div class="detail-grid">
+
+        <div class="detail-main">
+          <div class="detail-tags">
+            <span class="tag">{{ typeLabels[listing.listing_type] }}</span>
+            <span class="tag tag-meal">{{ mealLabels[listing.meal_plan] }}</span>
+          </div>
+
+          <h1>{{ listing.title }}</h1>
+
+          <div class="detail-meta">
+            <span>📍 {{ listing.location_name }}</span>
+            <span>👤 Хост: {{ listing.host_name }}</span>
+            <span>🏠 До {{ listing.max_guests }} гостей</span>
+            @if (averageRating > 0) {
+              <span>⭐ {{ averageRating.toFixed(1) }} ({{ reviews.length }} отзывов)</span>
+            } @else {
+              <span>🆕 Новое жильё</span>
+            }
+          </div>
+
+          <div class="detail-description">
+            <h3>Об этом месте</h3>
+            <p>{{ listing.description }}</p>
+          </div>
+
+          <div class="reviews-section">
+            <div class="reviews-header">
+              <h3>Отзывы ({{ reviews.length }})</h3>
+              @if ((authService.currentUser$ | async)) {
+                <button (click)="toggleReviewForm()" class="btn-secondary">
+                  @if (showReviewForm) { Отмена } @else { + Написать отзыв }
+                </button>
+              }
+            </div>
+
+            @if (showReviewForm && listing) {
+              <app-review-form
+                [listingId]="listing.id"
+                (reviewSubmitted)="onReviewSubmitted()"
+              />
+            }
+
+            @for (review of reviews; track review.id) {
+              <div class="review-card">
+                <div class="review-header">
+                  <span class="review-author">👤 {{ review.username }}</span>
+                  <span class="review-stars">{{ getStars(review.rating) }}</span>
+                  <span class="review-date">{{ review.created_at | date:'dd.MM.yyyy' }}</span>
+                </div>
+                <p class="review-text">{{ review.comment }}</p>
+              </div>
+            } @empty {
+              <div class="empty-state">
+                <p>Отзывов пока нет. Будьте первым!</p>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="booking-sidebar">
+          <div class="booking-box card">
+            <div class="price-big">
+              {{ listing.price_per_night | number }} ₸
+              <small>за ночь</small>
+            </div>
+
+            @if (averageRating > 0) {
+              <p class="sidebar-rating">⭐ {{ averageRating.toFixed(1) }} · {{ reviews.length }} отзывов</p>
+            }
+
+            <button (click)="book()" class="btn-primary book-btn">
+              Забронировать
+            </button>
+
+            <p class="book-note">
+              @if (!(authService.currentUser$ | async)) {
+                <a routerLink="/login">Войдите</a> чтобы забронировать
+              } @else {
+                Оплата на месте. Отмена бесплатно.
+              }
+            </p>
+
+            <div class="sidebar-info">
+              <div class="info-row">
+                <span>Тип</span>
+                <span>{{ typeLabels[listing.listing_type] }}</span>
+              </div>
+              <div class="info-row">
+                <span>Питание</span>
+                <span>{{ mealLabels[listing.meal_plan] }}</span>
+              </div>
+              <div class="info-row">
+                <span>Гостей макс.</span>
+                <span>{{ listing.max_guests }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  }
+</div>
