@@ -1,0 +1,5 @@
+.booking-page { padding: 32px 24px; }
+.back-btn { margin-bottom: 20px; }
+.booking-card { max-width: 480px; margin: 0 auto; padding: 36px; }
+.booking-card h2 { margin-bottom: 24px; color: var(--primary); font-size: 22px; }
+.submit-btn { width: 100%; padding: 14px; font-size: 16px; margin-top: 8px; }

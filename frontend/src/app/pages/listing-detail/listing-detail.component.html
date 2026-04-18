@@ -1,0 +1,39 @@
+<div class="container detail-page">
+  @if (loading) {
+    <div class="loading">⏳ Загружаем...</div>
+  }
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
+  @if (listing) {
+    <button (click)="goBack()" class="btn-secondary back-btn">← Назад</button>
+    <div class="detail-card card">
+      @if (listing.image_url) {
+        <img [src]="listing.image_url" [alt]="listing.title" class="detail-img" />
+      } @else {
+        <div class="detail-img-placeholder">🏕️</div>
+      }
+      <div class="detail-info">
+        <h1>{{ listing.title }}</h1>
+        <p class="detail-location">📍 {{ listing.location_name }} — {{ listing.city }}</p>
+        <p class="detail-desc">{{ listing.description }}</p>
+        <div class="detail-meta">
+          <span>👥 Макс. гостей: {{ listing.max_guests }}</span>
+          <span>🍽️ Питание: {{ listing.meal_plan }}</span>
+          <span>🏠 Тип: {{ listing.listing_type }}</span>
+        </div>
+        @if (listing.average_rating > 0) {
+          <p class="detail-rating">⭐ {{ listing.average_rating }} ({{ listing.reviews_count }} отзывов)</p>
+        }
+        <div class="detail-footer">
+          <span class="price">{{ listing.price_per_night | number }} ₸<small>/ночь</small></span>
+          @if (authService.isLoggedIn()) {
+            <button (click)="goToBooking()" class="btn-primary">Забронировать</button>
+          } @else {
+            <a routerLink="/login" class="btn-primary">Войдите чтобы забронировать</a>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
