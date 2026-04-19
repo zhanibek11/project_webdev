@@ -1,0 +1,49 @@
+<div class="container add-page">
+  <h1>+ Добавить юрту</h1>
+  <div class="add-card card">
+
+    @if (errorMessage) { <div class="error">{{ errorMessage }}</div> }
+    @if (successMessage) { <div class="success">{{ successMessage }}</div> }
+
+    <div class="form-group">
+      <label>Название *</label>
+      <input type="text" [(ngModel)]="title" placeholder="Название вашей юрты" />
+    </div>
+    <div class="form-group">
+      <label>Описание *</label>
+      <textarea [(ngModel)]="description" rows="4" placeholder="Опишите вашу юрту..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Цена за ночь (₸) *</label>
+      <input type="number" [(ngModel)]="price" min="0" />
+    </div>
+    <div class="form-group">
+      <label>Макс. гостей</label>
+      <input type="number" [(ngModel)]="maxGuests" min="1" max="50" />
+    </div>
+    <div class="form-group">
+      <label>Тип</label>
+      <select [(ngModel)]="listingType">
+        @for (t of typeOptions; track t.value) {
+          <option [value]="t.value">{{ t.label }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Питание</label>
+      <select [(ngModel)]="mealPlan">
+        @for (m of mealOptions; track m.value) {
+          <option [value]="m.value">{{ m.label }}</option>
+        }
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Ссылка на фото</label>
+      <input type="text" [(ngModel)]="imageUrl" placeholder="https://..." />
+    </div>
+
+    <button (click)="onSubmit()" class="btn-primary submit-btn" [disabled]="loading">
+      @if (loading) { Добавляем... } @else { Добавить юрту }
+    </button>
+  </div>
+</div>
