@@ -8,7 +8,7 @@ import { Listing } from '../../core/models/listing.model';
 @Component({
   selector: 'app-listings',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './listings.component.html',
   styleUrls: ['./listings.component.css']
 })
