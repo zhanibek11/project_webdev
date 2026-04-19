@@ -1,0 +1,82 @@
+.booking-page { padding: 32px 0 60px; }
+
+.back-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary);
+  font-size: 15px;
+  margin-bottom: 24px;
+  padding: 0;
+  font-weight: 600;
+}
+.back-btn:hover { text-decoration: underline; }
+
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 32px;
+  align-items: start;
+}
+
+.booking-form { padding: 32px; }
+.booking-form h2 { font-size: 22px; margin-bottom: 20px; color: var(--primary); }
+
+.listing-preview {
+  background: #f0f7f4;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+}
+.preview-title { font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+.preview-meta { color: var(--text-muted); font-size: 13px; }
+
+.booked-warning {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+.booked-warning ul { margin: 8px 0 0 16px; color: var(--text-muted); }
+.booked-warning li { margin-bottom: 4px; }
+
+.price-summary {
+  background: #f0f7f4;
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 15px;
+}
+.price-row.total {
+  border-top: 1px solid var(--border);
+  margin-top: 6px;
+  padding-top: 12px;
+  font-size: 17px;
+}
+
+.submit-btn { width: 100%; padding: 14px; font-size: 16px; }
+.booking-note { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 12px; }
+
+.info-card { overflow: hidden; }
+.info-img { width: 100%; height: 200px; object-fit: cover; }
+.info-img-placeholder {
+  height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 64px;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+}
+.info-body { padding: 16px; }
+.info-body h3 { margin-bottom: 8px; }
+.info-body p { color: var(--text-muted); font-size: 14px; margin-bottom: 4px; }
+.info-price { font-size: 18px; font-weight: 700; color: var(--primary); margin-top: 8px !important; }
+
+@media (max-width: 768px) {
+  .booking-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,113 @@
+<div class="booking-page">
+  <div class="container">
+
+    @if (loading) {
+      <div class="loading">⏳ Загружаем...</div>
+    }
+
+    @if (successMessage) {
+      <div class="success">{{ successMessage }}</div>
+    }
+
+    @if (listing && !loading) {
+      <button (click)="goBack()" class="back-btn">← Назад к юрте</button>
+
+      <div class="booking-grid">
+
+        <div class="booking-form card">
+          <h2>Бронирование</h2>
+          <div class="listing-preview">
+            <p class="preview-title">{{ listing.title }}</p>
+            <p class="preview-meta">📍 {{ listing.location_name }} · {{ typeLabels[listing.listing_type] }}</p>
+          </div>
+
+          @if (bookedPeriodsList.length > 0) {
+            <div class="booked-warning">
+              <strong>⚠️ Занятые периоды:</strong>
+              <ul>
+                @for (period of bookedPeriodsList; track period) {
+                  <li>{{ period }}</li>
+                }
+              </ul>
+            </div>
+          }
+
+          <div class="form-group">
+            <label>📅 Дата заезда</label>
+            <input
+              type="date"
+              [(ngModel)]="checkIn"
+              [min]="today"
+              (change)="onDatesChange()"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>📅 Дата выезда</label>
+            <input
+              type="date"
+              [(ngModel)]="checkOut"
+              [min]="checkIn || today"
+              (change)="onDatesChange()"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>👥 Количество гостей (макс. {{ listing.max_guests }})</label>
+            <input
+              type="number"
+              [(ngModel)]="guestsCount"
+              [min]="1"
+              [max]="listing.max_guests"
+              (change)="onDatesChange()"
+            />
+          </div>
+
+          @if (errorMessage) {
+            <div class="error">{{ errorMessage }}</div>
+          }
+
+          @if (nights > 0 && totalPrice > 0) {
+            <div class="price-summary">
+              <div class="price-row">
+                <span>{{ listing.price_per_night | number }} ₸ × {{ nights }} ночей</span>
+                <span>{{ totalPrice | number }} ₸</span>
+              </div>
+              <div class="price-row total">
+                <span>Итого</span>
+                <strong>{{ totalPrice | number }} ₸</strong>
+              </div>
+            </div>
+          }
+
+          <button
+            (click)="submitBooking()"
+            class="btn-primary submit-btn"
+            [disabled]="submitting || !checkIn || !checkOut || nights <= 0"
+          >
+            @if (submitting) { Бронируем... } @else { Подтвердить бронирование }
+          </button>
+
+          <p class="booking-note">Оплата производится на месте. Бесплатная отмена.</p>
+        </div>
+
+        <div class="listing-info-sidebar">
+          <div class="card info-card">
+            @if (listing.image_url) {
+              <img [src]="listing.image_url" [alt]="listing.title" class="info-img" />
+            } @else {
+              <div class="info-img-placeholder">🏕️</div>
+            }
+            <div class="info-body">
+              <h3>{{ listing.title }}</h3>
+              <p>📍 {{ listing.location_name }}</p>
+              <p>🏠 До {{ listing.max_guests }} гостей</p>
+              <p class="info-price">{{ listing.price_per_night | number }} ₸ / ночь</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    }
+  </div>
+</div>
