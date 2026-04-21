@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+  currentUser$ = new BehaviorSubject<any>(null);
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+=======
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
@@ -53,5 +64,6 @@ export class AuthService {
   private loadUser(): User | null {
     const u = localStorage.getItem('user');
     return u ? JSON.parse(u) : null;
+>>>>>>> origin/main
   }
 }

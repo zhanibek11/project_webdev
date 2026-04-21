@@ -1,0 +1,33 @@
+<div class="review-form">
+  <h4>Ваш отзыв</h4>
+
+  <div class="stars-row">
+    @for (star of stars; track star) {
+      <span
+        class="star"
+        [class.active]="star <= rating"
+        (click)="setRating(star)"
+      >★</span>
+    }
+    <span class="rating-label">{{ rating }} из 5</span>
+  </div>
+
+  <div class="form-group">
+    <label>Комментарий</label>
+    <textarea
+      [(ngModel)]="comment"
+      placeholder="Расскажите о вашем опыте..."
+      rows="4"
+    ></textarea>
+  </div>
+
+  @if (errorMessage) { <div class="error">{{ errorMessage }}</div> }
+
+  <button
+    (click)="submit()"
+    class="btn-primary"
+    [disabled]="submitting || !comment.trim()"
+  >
+    @if (submitting) { Отправляем... } @else { Отправить отзыв }
+  </button>
+</div>

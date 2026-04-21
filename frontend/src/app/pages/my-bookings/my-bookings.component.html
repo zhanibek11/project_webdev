@@ -1,3 +1,69 @@
+<<<<<<< HEAD
+<div class="my-bookings-page container">
+  <h1>🗓️ Мои бронирования</h1>
+
+  @if (errorMessage) { <div class="error">{{ errorMessage }}</div> }
+  @if (loading) { <div class="loading">⏳ Загружаем ваши брони...</div> }
+
+  @if (!loading) {
+    @for (booking of bookings; track booking.id) {
+      <div class="booking-card card">
+        <div class="booking-header">
+          <div>
+            <h3 class="booking-title" (click)="openListing(booking.listing)">
+              {{ booking.listing_title }}
+            </h3>
+            <span [class]="'status-badge ' + statusClasses[booking.status]">
+              {{ statusLabels[booking.status] }}
+            </span>
+          </div>
+          <div class="booking-price">{{ booking.total_price | number }} ₸</div>
+        </div>
+
+        <div class="booking-dates">
+          <div class="date-block">
+            <small>Заезд</small>
+            <strong>{{ booking.check_in | date:'dd.MM.yyyy' }}</strong>
+          </div>
+          <div class="date-arrow">→</div>
+          <div class="date-block">
+            <small>Выезд</small>
+            <strong>{{ booking.check_out | date:'dd.MM.yyyy' }}</strong>
+          </div>
+          <div class="date-block">
+            <small>Ночей</small>
+            <strong>{{ calcNights(booking.check_in, booking.check_out) }}</strong>
+          </div>
+          <div class="date-block">
+            <small>Гостей</small>
+            <strong>{{ booking.guests_count }}</strong>
+          </div>
+        </div>
+
+        <div class="booking-footer">
+          <small class="booking-created">
+            Создано: {{ booking.created_at | date:'dd.MM.yyyy HH:mm' }}
+          </small>
+          @if (booking.status === 'pending' || booking.status === 'confirmed') {
+            <button
+              (click)="cancelBooking(booking.id)"
+              class="btn-danger"
+              [disabled]="cancellingId === booking.id"
+            >
+              @if (cancellingId === booking.id) { Отменяем... } @else { Отменить }
+            </button>
+          }
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <h3>😔 У вас пока нет броней</h3>
+        <p>Выберите юрту и забронируйте незабываемое путешествие!</p>
+        <button routerLink="/listings" class="btn-primary" style="margin-top:16px">
+          Смотреть юрты
+        </button>
+      </div>
+=======
 <div class="container bookings-page">
   <h1>Мои брони</h1>
 
@@ -29,6 +95,7 @@
           </div>
         }
       </div>
+>>>>>>> origin/main
     }
   }
 </div>

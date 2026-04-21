@@ -9,10 +9,26 @@ export class ListingService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
+<<<<<<< HEAD
+  getListing(id: number): Observable<Listing> {
+    return this.http.get<Listing>(`${this.apiUrl}/listings/${id}/`);
+  }
+
+  getListings(): Observable<Listing[]> {
+    return this.http.get<Listing[]>(`${this.apiUrl}/listings/`);
+  }
+
+=======
+>>>>>>> origin/main
   getLocations(): Observable<Location[]> {
     return this.http.get<Location[]>(`${this.apiUrl}/locations/`);
   }
 
+<<<<<<< HEAD
+  createListing(data: any): Observable<Listing> {
+    return this.http.post<Listing>(`${this.apiUrl}/listings/`, data);
+  }
+=======
   getListings(city?: string, type?: string, mealPlan?: string): Observable<Listing[]> {
     let params: any = {};
     if (city) params['city'] = city;
@@ -40,4 +56,5 @@ export class ListingService {
   searchListings(query: string): Observable<Listing[]> {
     return this.http.get<Listing[]>(`${this.apiUrl}/search/`, { params: { q: query } });
   }
+>>>>>>> origin/main
 }
