@@ -1,0 +1,63 @@
+.home-container { padding-bottom: 60px; }
+
+.hero {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%);
+  color: white;
+  padding: 80px 32px;
+  text-align: center;
+}
+.hero-content { max-width: 600px; margin: 0 auto; }
+.hero h1 { font-size: 3.2rem; margin-bottom: 12px; letter-spacing: 1px; }
+.hero-sub { font-size: 1.15rem; opacity: 0.88; margin-bottom: 28px; }
+.hero-btn { font-size: 17px; padding: 14px 36px; }
+
+.map-section, .cities-section, .how-section { margin-top: 48px; }
+.map-section h2, .cities-section h2, .how-section h2 { font-size: 1.6rem; margin-bottom: 6px; }
+.section-sub { color: var(--text-muted); margin-bottom: 16px; font-size: 14px; }
+
+.map { height: 480px; border-radius: var(--radius); box-shadow: var(--shadow); z-index: 1; }
+
+.cities-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+.city-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.city-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.city-emoji { font-size: 36px; }
+.city-card h3 { margin: 10px 0 4px; font-size: 18px; color: var(--primary); }
+.city-card p { color: var(--text-muted); font-size: 13px; }
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+.step { background: white; border-radius: var(--radius); padding: 24px 20px; text-align: center; box-shadow: var(--shadow); }
+.step-num {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+}
+.step h4 { margin-bottom: 6px; color: var(--primary); }
+.step p { color: var(--text-muted); font-size: 13px; }
+
+@media (max-width: 768px) {
+  .cities-grid, .steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: 2.2rem; }
+}

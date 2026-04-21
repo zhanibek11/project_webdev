@@ -1,0 +1,82 @@
+<div class="listings-page">
+
+  <div class="filters-bar">
+    <div class="container">
+      <h1>Юрты Казахстана</h1>
+      <div class="filters-row">
+        <div class="search-box">
+          <input type="text" [(ngModel)]="searchQuery" placeholder="🔍 Поиск по названию..." (keyup.enter)="searchNow()" />
+          <button (click)="searchNow()" class="btn-primary">Найти</button>
+        </div>
+        <select [(ngModel)]="selectedCity">
+          <option value="">Все города</option>
+          @for (city of cityOptions; track city.value) {
+            <option [value]="city.value">{{ city.label }}</option>
+          }
+        </select>
+        <select [(ngModel)]="selectedType">
+          <option value="">Все типы</option>
+          @for (t of typeOptions; track t.value) {
+            <option [value]="t.value">{{ t.label }}</option>
+          }
+        </select>
+        <select [(ngModel)]="selectedMeal">
+          <option value="">Любое питание</option>
+          @for (m of mealOptions; track m.value) {
+            <option [value]="m.value">{{ m.label }}</option>
+          }
+        </select>
+        <button (click)="applyFilters()" class="btn-primary">Применить</button>
+        <button (click)="resetFilters()" class="btn-secondary">Сбросить</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container listings-body">
+    @if (errorMessage) { <div class="error">{{ errorMessage }}</div> }
+
+    @if (loading) {
+      <div class="loading">⏳ Загружаем юрты...</div>
+    } @else {
+      <p class="results-count">Найдено: {{ listings.length }} юрт</p>
+      <div class="listings-grid">
+        @for (listing of listings; track listing.id) {
+          <div class="listing-card card" (click)="openListing(listing.id)">
+            <div class="listing-img">
+              @if (listing.image_url) {
+                <img [src]="listing.image_url" [alt]="listing.title" />
+              } @else {
+                <div class="img-placeholder">🏕️</div>
+              }
+            </div>
+            <div class="listing-info">
+              <div class="listing-tags">
+                <span class="tag">{{ getTypeLabel(listing.listing_type) }}</span>
+                <span class="tag tag-meal">{{ getMealLabel(listing.meal_plan) }}</span>
+              </div>
+              <h3>{{ listing.title }}</h3>
+              <p class="listing-location">📍 {{ listing.location_name }}</p>
+              <p class="listing-desc">{{ listing.description | slice:0:90 }}...</p>
+              <div class="listing-footer">
+                <span class="price">{{ listing.price_per_night | number }} ₸<small>/ночь</small></span>
+                <span class="rating">
+                  @if (listing.average_rating > 0) {
+                    ⭐ {{ listing.average_rating }} ({{ listing.reviews_count }})
+                  } @else {
+                    Новое 🆕
+                  }
+                </span>
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-state">
+            <h3>😔 Юрт не найдено</h3>
+            <p>Попробуйте изменить фильтры или выбрать другой город</p>
+            <button (click)="resetFilters()" class="btn-primary" style="margin-top:16px">Сбросить фильтры</button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

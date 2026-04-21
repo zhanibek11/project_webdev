@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <a routerLink="/" class="logo">🏕️ Qazaq Rent</a>
+
+  <div class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Главная</a>
+    <a routerLink="/listings" routerLinkActive="active">Юрты</a>
+
+    @if (authService.currentUser$ | async; as user) {
+      <a routerLink="/my-bookings" routerLinkActive="active">Мои брони</a>
+      <a routerLink="/add-listing" routerLinkActive="active">+ Добавить</a>
+      <span class="username">👤 {{ user.username }}</span>
+      <button (click)="logout()" class="btn-logout">Выйти</button>
+    } @else {
+      <a routerLink="/login" routerLinkActive="active">Вход</a>
+      <a routerLink="/register" class="btn-register" routerLinkActive="active">Регистрация</a>
+    }
+  </div>
+</nav>
