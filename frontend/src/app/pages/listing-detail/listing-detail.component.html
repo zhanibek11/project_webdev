@@ -1,11 +1,11 @@
-<div class="container detail-page">
-  @if (loading) {
+<div>
+  @if (loading == true) {
     <div class="loading">⏳ Загружаем...</div>
   }
   @if (errorMessage) {
     <div class="error">{{ errorMessage }}</div>
   }
-  @if (listing) {
+  @if (listing !== null) {
     <button (click)="goBack()" class="btn-secondary back-btn">← Назад</button>
     <div class="detail-card card">
       @if (listing.image_url) {

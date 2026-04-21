@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,7 @@ export class ListingsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private listingService = inject(ListingService);
+  private cdr = inject(ChangeDetectorRef);
 
   listings: Listing[] = [];
   loading = false;
@@ -59,9 +60,10 @@ export class ListingsComponent implements OnInit {
     this.errorMessage = '';
     this.listingService.getListings(this.selectedCity, this.selectedType, this.selectedMeal).subscribe({
       next: (data) => {
-        this.listings = data;
-        this.loading = false;
-      },
+  this.listings = data;
+  this.loading = false;
+  this.cdr.detectChanges();
+},
       error: () => {
         this.errorMessage = 'Не удалось загрузить юрты. Проверьте что бэкенд запущен.';
         this.loading = false;

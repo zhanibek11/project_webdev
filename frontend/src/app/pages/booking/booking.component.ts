@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,7 @@ export class BookingComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private http = inject(HttpClient);
+  private cdr = inject(ChangeDetectorRef);
 
   listingId = 0;
   checkIn = '';
@@ -37,20 +38,21 @@ export class BookingComponent implements OnInit {
     this.loading = true;
     this.errorMessage = '';
     this.http.post(`${environment.apiUrl}/bookings/`, {
-      listing: this.listingId,
+      listing_id: this.listingId,
       check_in: this.checkIn,
       check_out: this.checkOut,
-      guests: this.guests
+      guests_count: this.guests
     }).subscribe({
       next: () => {
         this.loading = false;
         this.successMessage = 'Бронь успешно создана!';
         setTimeout(() => this.router.navigate(['/my-bookings']), 1500);
       },
-      error: () => {
-        this.loading = false;
-        this.errorMessage = 'Ошибка при бронировании. Попробуйте снова.';
-      }
+      error: (err) => {
+  this.loading = false;
+  this.errorMessage = err.error?.error || 'Эти даты уже заняты. Выберите другой период.';
+  this.cdr.detectChanges();
+}
     });
   }
 

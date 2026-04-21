@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment';
 export class MyBookingsComponent implements OnInit {
   private http = inject(HttpClient);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   bookings: any[] = [];
   loading = false;
@@ -25,6 +26,7 @@ export class MyBookingsComponent implements OnInit {
       next: (data) => {
         this.bookings = data;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.errorMessage = 'Не удалось загрузить брони.';

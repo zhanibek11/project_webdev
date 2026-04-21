@@ -120,8 +120,14 @@ class ListingListCreateView(APIView):
     def get(self, request):
         listings = Listing.active.all()
         city = request.query_params.get('city')
+        listing_type = request.query_params.get('type')
+        meal_plan = request.query_params.get('meal_plan')
         if city:
             listings = listings.filter(location__city=city)
+        if listing_type:
+            listings = listings.filter(listing_type=listing_type)
+        if meal_plan:
+            listings = listings.filter(meal_plan=meal_plan)
         return Response(ListingSerializer(listings, many=True).data)
 
     def post(self, request):
