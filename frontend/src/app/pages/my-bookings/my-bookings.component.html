@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="my-bookings-page container">
   <h1>🗓️ Мои бронирования</h1>
 
@@ -62,6 +63,39 @@
           Смотреть юрты
         </button>
       </div>
+=======
+<div class="container bookings-page">
+  <h1>Мои брони</h1>
+
+  @if (loading) { <div class="loading">⏳ Загружаем...</div> }
+  @if (errorMessage) { <div class="error">{{ errorMessage }}</div> }
+
+  @if (!loading) {
+    @if (bookings.length === 0) {
+      <div class="empty-state">
+        <h3>У вас пока нет броней</h3>
+        <p>Найдите юрту и забронируйте!</p>
+        <button (click)="goToListing(0)" class="btn-primary" style="margin-top:16px" routerLink="/listings">
+          Смотреть юрты
+        </button>
+      </div>
+    } @else {
+      <div class="bookings-grid">
+        @for (booking of bookings; track booking.id) {
+          <div class="booking-card card" (click)="goToListing(booking.listing)">
+            <div class="booking-info">
+              <h3>{{ booking.listing_title || 'Юрта #' + booking.listing }}</h3>
+              <p>📅 Заезд: {{ booking.check_in }}</p>
+              <p>📅 Выезд: {{ booking.check_out }}</p>
+              <p>👥 Гостей: {{ booking.guests }}</p>
+              <span class="status" [class.confirmed]="booking.status === 'confirmed'">
+                {{ booking.status }}
+              </span>
+            </div>
+          </div>
+        }
+      </div>
+>>>>>>> origin/main
     }
   }
 </div>

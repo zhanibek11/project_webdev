@@ -1,16 +1,4 @@
-.add-listing-page { padding: 32px 0 60px; }
-h1 { font-size: 1.8rem; margin-bottom: 28px; color: var(--primary); }
-.form-card { padding: 36px; max-width: 800px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.form-actions { display: flex; gap: 16px; margin-top: 24px; }
-.img-preview {
-  margin-bottom: 16px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  max-height: 300px;
-}
-.img-preview img { width: 100%; height: 300px; object-fit: cover; }
-
-@media (max-width: 600px) {
-  .form-row { grid-template-columns: 1fr; }
-}
+.add-page { padding: 32px 24px; }
+.add-page h1 { margin-bottom: 24px; color: var(--primary); }
+.add-card { max-width: 600px; margin: 0 auto; padding: 36px; }
+.submit-btn { width: 100%; padding: 14px; font-size: 16px; margin-top: 8px; }

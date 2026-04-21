@@ -2,20 +2,30 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
 import { BookingService } from '../../services/booking.service';
 import { ListingService } from '../../services/listing.service';
 import { Listing } from '../../core/models/listing.model';
+=======
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+>>>>>>> origin/main
 
 @Component({
   selector: 'app-booking',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './booking.component.html',
+<<<<<<< HEAD
   styleUrls: ['./booking.component.css'],
+=======
+  styleUrls: ['./booking.component.css']
+>>>>>>> origin/main
 })
 export class BookingComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+<<<<<<< HEAD
   private bookingService = inject(BookingService);
   private listingService = inject(ListingService);
 
@@ -72,10 +82,48 @@ export class BookingComponent implements OnInit {
       const end = new Date(r.check_out);
       for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
         this.bookedDatesSet.add(d.toISOString().split('T')[0]);
+=======
+  private http = inject(HttpClient);
+
+  listingId = 0;
+  checkIn = '';
+  checkOut = '';
+  guests = 1;
+  errorMessage = '';
+  successMessage = '';
+  loading = false;
+
+  ngOnInit(): void {
+    this.listingId = Number(this.route.snapshot.paramMap.get('listingId'));
+  }
+
+  onSubmit(): void {
+    if (!this.checkIn || !this.checkOut) {
+      this.errorMessage = 'Выберите даты';
+      return;
+    }
+    this.loading = true;
+    this.errorMessage = '';
+    this.http.post(`${environment.apiUrl}/bookings/`, {
+      listing: this.listingId,
+      check_in: this.checkIn,
+      check_out: this.checkOut,
+      guests: this.guests
+    }).subscribe({
+      next: () => {
+        this.loading = false;
+        this.successMessage = 'Бронь успешно создана!';
+        setTimeout(() => this.router.navigate(['/my-bookings']), 1500);
+      },
+      error: () => {
+        this.loading = false;
+        this.errorMessage = 'Ошибка при бронировании. Попробуйте снова.';
+>>>>>>> origin/main
       }
     });
   }
 
+<<<<<<< HEAD
   onDatesChange(): void {
     this.errorMessage = '';
     this.totalPrice = 0;
@@ -163,5 +211,9 @@ export class BookingComponent implements OnInit {
 
   get bookedPeriodsList(): string[] {
     return this.bookedRanges.map((r) => `${r.check_in} → ${r.check_out}`);
+=======
+  goBack(): void {
+    this.router.navigate(['/listing', this.listingId]);
+>>>>>>> origin/main
   }
 }

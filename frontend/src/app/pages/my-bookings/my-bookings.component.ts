@@ -1,12 +1,20 @@
 import { Component, OnInit, inject } from '@angular/core';
+<<<<<<< HEAD
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BookingService } from '../../services/booking.service';
 import { Booking } from '../../core/models/booking.model';
+=======
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+>>>>>>> origin/main
 
 @Component({
   selector: 'app-my-bookings',
   standalone: true,
+<<<<<<< HEAD
   imports: [CommonModule, RouterLink],
   templateUrl: './my-bookings.component.html',
   styleUrls: ['./my-bookings.component.css'],
@@ -41,11 +49,29 @@ export class MyBookingsComponent implements OnInit {
   loadBookings(): void {
     this.loading = true;
     this.bookingService.getMyBookings().subscribe({
+=======
+  imports: [CommonModule],
+  templateUrl: './my-bookings.component.html',
+  styleUrls: ['./my-bookings.component.css']
+})
+export class MyBookingsComponent implements OnInit {
+  private http = inject(HttpClient);
+  private router = inject(Router);
+
+  bookings: any[] = [];
+  loading = false;
+  errorMessage = '';
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.http.get<any[]>(`${environment.apiUrl}/bookings/`).subscribe({
+>>>>>>> origin/main
       next: (data) => {
         this.bookings = data;
         this.loading = false;
       },
       error: () => {
+<<<<<<< HEAD
         this.errorMessage = 'Не удалось загрузить брони';
         this.loading = false;
       },
@@ -75,4 +101,15 @@ export class MyBookingsComponent implements OnInit {
     const ms = new Date(checkOut).getTime() - new Date(checkIn).getTime();
     return Math.round(ms / (1000 * 60 * 60 * 24));
   }
+=======
+        this.errorMessage = 'Не удалось загрузить брони.';
+        this.loading = false;
+      }
+    });
+  }
+
+  goToListing(listingId: number): void {
+    this.router.navigate(['/listing', listingId]);
+  }
+>>>>>>> origin/main
 }

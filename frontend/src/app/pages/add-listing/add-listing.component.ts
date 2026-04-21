@@ -1,104 +1,70 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { ListingService } from '../../services/listing.service';
-import { Location } from '../../core/models/listing.model';
 
 @Component({
   selector: 'app-add-listing',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './add-listing.component.html',
-  styleUrls: ['./add-listing.component.css'],
+  styleUrls: ['./add-listing.component.css']
 })
-export class AddListingComponent implements OnInit {
+export class AddListingComponent {
   private listingService = inject(ListingService);
   private router = inject(Router);
 
-  locations: Location[] = [];
-  loading = false;
-  errorMessage = '';
-  successMessage = '';
-
   title = '';
   description = '';
-  selectedLocation = '';
-  listingType = '';
-  mealPlan = '';
-  pricePerNight: number | null = null;
-  maxGuests: number | null = null;
+  price = 0;
+  maxGuests = 1;
+  listingType = 'family';
+  mealPlan = 'breakfast';
   imageUrl = '';
+  errorMessage = '';
+  successMessage = '';
+  loading = false;
 
   readonly typeOptions = [
-    { value: 'family', label: '👨‍👩‍👧 Для семьи' },
-    { value: 'couple', label: '💑 Для двоих' },
-    { value: 'solo', label: '🧍 Соло' },
-    { value: 'group', label: '👥 Для компании' },
+    { value: 'family', label: 'Для семьи' },
+    { value: 'couple', label: 'Для двоих' },
+    { value: 'solo', label: 'Соло' },
+    { value: 'group', label: 'Для компании' },
   ];
 
   readonly mealOptions = [
-    { value: 'all_inclusive', label: '🍽️ Всё включено' },
-    { value: 'breakfast', label: '☕ Только завтрак' },
-    { value: 'half_board', label: '🥗 Полупансион' },
-    { value: 'self_catering', label: '🛒 Без питания' },
+    { value: 'all_inclusive', label: 'Всё включено' },
+    { value: 'breakfast', label: 'Только завтрак' },
+    { value: 'half_board', label: 'Полупансион' },
+    { value: 'self_catering', label: 'Без питания' },
   ];
 
-  ngOnInit(): void {
-    this.listingService.getLocations().subscribe({
-      next: (data) => (this.locations = data),
-      error: () => (this.errorMessage = 'Не удалось загрузить список городов'),
-    });
-  }
-
-  submit(): void {
-    this.errorMessage = '';
-    if (
-      !this.title ||
-      !this.description ||
-      !this.selectedLocation ||
-      !this.listingType ||
-      !this.mealPlan ||
-      !this.pricePerNight ||
-      !this.maxGuests
-    ) {
+  onSubmit(): void {
+    if (!this.title || !this.description || !this.price) {
       this.errorMessage = 'Заполните все обязательные поля';
       return;
     }
     this.loading = true;
-    this.listingService
-      .createListing({
-        title: this.title,
-        description: this.description,
-        location: Number(this.selectedLocation),
-        listing_type: this.listingType,
-        meal_plan: this.mealPlan,
-        price_per_night: this.pricePerNight,
-        max_guests: this.maxGuests,
-        image_url: this.imageUrl,
-      })
-      .subscribe({
-        next: (listing) => {
-          this.loading = false;
-          this.successMessage = '✅ Юрта добавлена!';
-          setTimeout(() => this.router.navigate(['/listing', listing.id]), 1500);
-        },
-        error: (err) => {
-          this.loading = false;
-          this.errorMessage = err.error?.detail || 'Ошибка при создании';
-        },
-      });
-  }
-
-  reset(): void {
-    this.title = '';
-    this.description = '';
-    this.selectedLocation = '';
-    this.listingType = '';
-    this.mealPlan = '';
-    this.pricePerNight = null;
-    this.maxGuests = null;
-    this.imageUrl = '';
     this.errorMessage = '';
+    this.listingService.createListing({
+      title: this.title,
+      description: this.description,
+      price_per_night: this.price,
+      max_guests: this.maxGuests,
+      listing_type: this.listingType as any,
+      meal_plan: this.mealPlan as any,
+      image_url: this.imageUrl
+    }).subscribe({
+      next: () => {
+        this.loading = false;
+        this.successMessage = 'Юрта успешно добавлена!';
+        setTimeout(() => this.router.navigate(['/listings']), 1500);
+      },
+      error: () => {
+        this.loading = false;
+        this.errorMessage = 'Ошибка при добавлении. Проверьте данные.';
+      }
+    });
   }
 }
