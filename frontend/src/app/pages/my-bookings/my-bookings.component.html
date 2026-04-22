@@ -25,6 +25,11 @@
               <span class="status" [class.confirmed]="booking.status === 'confirmed'">
                 {{ booking.status }}
               </span>
+              @if (booking.status === 'confirmed' || booking.status === 'pending') {
+                <button (click)="cancelBooking(booking.id); $event.stopPropagation()" class="btn-danger">
+                  Отменить
+                </button>
+              }
             </div>
           </div>
         }

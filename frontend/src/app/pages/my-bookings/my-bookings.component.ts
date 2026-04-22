@@ -35,6 +35,21 @@ export class MyBookingsComponent implements OnInit {
     });
   }
 
+  cancelBooking(id:number): void {
+    this.http.patch(`${environment.apiUrl}/bookings/${id}/cancel/`, {}).subscribe({
+    next: () => {
+      this.bookings = this.bookings.map(b =>
+        b.id === id ? { ...b, status: 'cancelled' } : b
+      );
+      this.cdr.detectChanges();
+    },
+    error: () => {
+      this.errorMessage = 'Не удалось отменить бронь';
+      this.cdr.detectChanges();
+      }
+    });
+  }
+
   goToListing(listingId: number): void {
     this.router.navigate(['/listing', listingId]);
   }
